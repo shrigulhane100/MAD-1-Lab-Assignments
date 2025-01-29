@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+</head>
+
+<!-- studenttoupdate -->
+<body>
+    <h1>Update Student</h1>
+    <form action="/student/{{studenttoupdate.student_id}}/update" method="POST" id="update-student-form">
+        <div>
+            <label>Roll Number:</label>
+            <input type="text" name="roll" value="{{studenttoupdate.roll_number}}" disabled />
+        </div>
+        <br/>
+        <div>
+            <label>First Name:</label>
+            <input type="text" name="f_name" value="{{studenttoupdate.first_name}}" required />
+        </div>
+        <br/>
+        <div>
+            <label>Last Name:</label>
+            <input type="text" name="l_name" value="{{studenttoupdate.last_name}}" />
+        </div>
+        <br/>
+        <div>
+            <label for="courses">Select Courses: </label>
+            <select name="course" id="course">
+                <option value="course_1_id">MAD I</option>
+                <option value="course_2_id">DBMS</option>
+                <option value="course_3_id">PDSA</option>
+                <option value="course_4_id">BDM</option>
+            </select>
+            <!-- <input type="checkbox" name="courses" value="course_1" />
+            <label>MAD I</label>
+            <input type="checkbox" name="courses" value="course_2" />
+            <label>DBMS</label>
+            <input type="checkbox" name="courses" value="course_3" />
+            <label>PDSA</label>
+            <input type="checkbox" name="courses" value="course_4" />
+            <label>BDM</label> -->
+        </div>
+        <div>
+            <input type="submit" value="Update">
+        </div>
+    </form>
+</body>
+
+</html>

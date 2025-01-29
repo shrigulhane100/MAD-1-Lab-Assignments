@@ -3,12 +3,10 @@ import os
 from flask import Flask, request, redirect
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
-from models import User, Post, Role
 
 # from flask_restful import Resource, Api
 
 app = Flask(__name__)
-
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.sqlite3"
 
@@ -25,7 +23,7 @@ class Student(db.Model):
     roll_number = db.Column(db.String, unique=True, nullable=False)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String)
-    # course = db.relationship("course", secondary="Enrollments")
+    courses = db.relationship("Course", secondary="enrollments")
 
 
 class Course(db.Model):
@@ -47,10 +45,6 @@ class Enrollments(db.Model):
     )
 
 
-with app.app_context():
-    db.create_all()
-
-
 @app.route("/", methods=["GET"])
 def home():
     returned_students = Student.query.all()
@@ -65,7 +59,7 @@ def input():
         roll_n = request.form.get("roll")
         first_name = request.form.get("f_name")
         last_name = request.form.get("l_name")
-        selected_courses_values = request.form.getlist("course")
+        selected_courses_values = request.form.getlist("courses")
         selected_courses = []
         for i in selected_courses_values:
             a = i[-1]
@@ -118,7 +112,7 @@ def update(student_id):
     elif request.method == "POST":
         first_name = request.form.get("f_name")
         last_name = request.form.get("l_name")
-        selected_courses_values = request.form.getlist("course")
+        selected_courses_values = request.form.getlist("courses")
         selected_courses = []
         for i in selected_courses_values:
             a = i[-1]
@@ -186,11 +180,11 @@ def get_details(student_id):
 
         # print(courses_ids)
         # print(enrolled_course)
-        enrolled_course = student_detail_id.course
+        enrolled_course = student_detail_id.courses
         return render_template(
             "personal_details.html",
             studentdetail=student_detail_id,
-            course=enrolled_course,
+            courses=enrolled_course,
         )
 
 
